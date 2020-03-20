@@ -1,3 +1,6 @@
+language: python
+python:
+  - "2.7"
 services:
   - docker
 
@@ -6,8 +9,8 @@ env:
     - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - sudo apt install -y python python-setuptools python-dev build-essential python-pip python-mysqldb
-  - pip install flask flask-mysql
+  - sudo apt install -y python-pip 
+  - pip install flask flask-mysql MySQL-python
   - docker build -t trivy-ci-test:${COMMIT} .
   - export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
   - wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz
