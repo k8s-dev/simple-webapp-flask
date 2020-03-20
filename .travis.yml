@@ -9,7 +9,6 @@ env:
     - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - sudo apt install -y python-pip 
   - pip install flask flask-mysql MySQL-python
   - docker build -t trivy-ci-test:${COMMIT} .
   - export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
